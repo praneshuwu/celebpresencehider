@@ -15,7 +15,7 @@ function CelebrityItem({
   saveCelebrityChanges,
   setIsEditModeActive,
 }) {
-  const dob = calculateAge(celeb.dob);
+  let dob = calculateAge(celeb.dob);
   const [celebName, setCelebName] = useState(`${celeb.first} ${celeb.last}`);
   const [age, setAge] = useState(dob);
   const [gender, setGender] = useState(celeb.gender);
@@ -37,7 +37,6 @@ function CelebrityItem({
     !countryError &&
     !genderError &&
     !descriptionError;
-
 
   const changeHandler = (event) => {
     let name = event.target.name;
@@ -68,7 +67,6 @@ function CelebrityItem({
 
   // confirms changes
   const confirmationHandler = () => {
-
     const [first, last] = celebName.split(' ');
 
     // create a new celebrity object & replace old details with new details
@@ -90,7 +88,7 @@ function CelebrityItem({
   // reverts changes
   const revertChangesHandler = () => {
     setCelebName(`${celeb.first} ${celeb.last}`);
-    setAge(dob);
+    setAge(celeb.age ? celeb.age : dob);
     setGender(celeb.gender);
     setCountry(celeb.country);
     setDescription(celeb.description);
